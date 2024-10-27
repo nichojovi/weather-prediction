@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from ml.model import load_model, plot_last_data_points
+from ml.model import load_model, plot_last_data_points, train_model
 from tools.mongodb.mongo import fetch_all_data
 from tools.kafka.topic import create_kafka_topic
 from tools.kafka.producer import publish_messages
@@ -52,7 +52,7 @@ def upload_data():
     csv_file_path = '../weather-prediction/data/weather-data.csv'
     thread = threading.Thread(target=process_csv_and_publish, args=(csv_file_path, kafka_topic_name))
     thread.start()
-    return jsonify({'message': 'Data initialization started in the background.'}), 200
+    return jsonify({'message': 'Data initialization started.'}), 200
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -77,6 +77,11 @@ def predict():
     publish_messages(kafka_topic_name, input)
 
     return jsonify({'predictions': original_label[0], 'plot': plot})
+
+@app.route('/train', methods=['POST'])
+def train():
+    train_model()
+    return jsonify({'message': 'Training model started.'}), 200
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

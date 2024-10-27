@@ -1,6 +1,5 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import pickle
@@ -52,6 +51,3 @@ def plot_last_data_points(n):
     plt.savefig(img, format='png')
     img.seek(0)
     return base64.b64encode(img.getvalue()).decode('utf-8')
-
-if __name__ == "__main__":
-    train_model()

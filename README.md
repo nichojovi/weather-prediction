@@ -87,3 +87,15 @@ This project streams weather data from Kafka, processes it using Spark Streaming
    }
    ```
   Note: Summary saved to DB.
+
+6. **Sample API - Train**
+- Request:
+  ```bash
+  curl --location --request POST 'http://127.0.0.1:5000/train'
+  ```
+- Response
+  ```bash
+  {
+    "message": "Training model started."
+  }
+  ```
